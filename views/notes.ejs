@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/style.css">
+    <title>Note App</title>
+</head>
+<body>
+    <ul>
+    <%getNotes.forEach(note=>{%>
+       <li> <%= note.title %> </li>
+       <li> <%= note.description %> </li>
+       <li> <%= note.status %> </li>
+    <%})%>
+    </ul>
+</body>
+</html>
