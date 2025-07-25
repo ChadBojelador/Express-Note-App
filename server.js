@@ -1,11 +1,19 @@
-import express from "express"
+import express, { urlencoded } from "express"
 import {dbconnect} from "./config/db.js"
-import notesRoutes from "./routes/notesRoutes.js"
+import apiRoutes from "./routes/apiRoutes.js"
+import pageRoutes from "./routes/pageRoutes.js"
+import { configureViewEngine } from "./config/ejs.js";
+
 const app = express();
+
 await dbconnect();
-const PORT = 3000
+configureViewEngine(app)
+const PORT = process.env.PORT
+
+app.use(express.urlencoded({extended: true}))
 app.use(express.json());
-app.use("/", notesRoutes)
+app.use("/", apiRoutes)
+app.use("/", pageRoutes)
 
 app.listen(PORT, ()=>{
     console.log(`server alive at http://localhost:${PORT}`)
