@@ -28,18 +28,18 @@ export const addNote= async(req,res)=>{
     }
 }
 
-export const getNote= async(req,res)=>{
+export const getNote = async(req,res)=>{
     const {id} = req.params;
-    const note = await Note.find({id});
-
-    try{
-        return res.status(200).json(note)
+    try {
+        const note = await Note.findById(id); 
+        if (!note) return res.status(404).json({message: "Note not found"});
+        res.status(200).json(note);
     }
     catch(error){
-        return res.status(400).json({message:"cannot get note"})
+        res.status(400).json({message:"cannot get note", error: error.message})
     }
-
 }
+
 
 export const deleteNote = async(req,res)=>{
     const {id} = req.params;
